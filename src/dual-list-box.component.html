@@ -1,0 +1,46 @@
+<div class="row" [formGroup]="listBoxForm">
+    <div class="col-md-4">
+        <h4 class="text-center vertical-spacing-5">{{availableText}} - showing {{availableItems?.length}}</h4>
+        <input type="text" class="form-control vertical-spacing-5" placeholder="Filter..."
+               formControlName="availableSearchInput" />
+        <select class="form-control list-box" formControlName="availableListBox" multiple>
+            <option *ngFor="let item of availableItems | arraySort:['text', sortDirection]" [value]="item?.value">{{item?.text}}</option>
+        </select>
+    </div>
+    <div class="col-md-2 center-block">
+        <button type="button" class="btn btn-default col-md-8 col-md-offset-2 atr top80"
+                *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
+            <span class="glyphicon glyphicon-list"></span>
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+        <button type="button" class="btn btn-default col-md-8 col-md-offset-2 str vertical-spacing-5"
+                [disabled]="!availableListBoxControl.value?.length"
+                (click)="moveMarkedAvailableItemsToSelected()">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </button>
+        <button type="button" class="btn btn-default col-md-8 col-md-offset-2 stl vertical-spacing-5"
+                [disabled]="!selectedListBoxControl.value?.length"
+                (click)="moveMarkedSelectedItemsToAvailable()">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </button>
+        <button type="button" class="btn btn-default col-md-8 col-md-offset-2 atl bottom10"
+                *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="glyphicon glyphicon-list"></span>
+        </button>
+    </div>
+    <div class="col-md-4">
+        <h4 class="text-center vertical-spacing-5">{{selectedText}} - showing {{selectedItems?.length}}</h4>
+        <input type="text" class="form-control vertical-spacing-5" placeholder="Filter..."
+               formControlName="selectedSearchInput" />
+        <select class="form-control list-box" formControlName="selectedListBox" multiple>
+            <option *ngFor="let item of selectedItems| arraySort:['text', sortDirection]" [value]="item?.value">{{item?.text}}</option>
+        </select>
+    </div>
+    <div class="col-md-1 center-block">
+        <button type="button" class="btn btn-default col-md-6 top80">
+            <span class="glyphicon {{sortDirection === 'ASC' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'}}"
+                  (click)="sortDirection === 'ASC' ? sortDirection = 'DESC' : sortDirection = 'ASC'"></span>
+        </button>
+    </div>
+</div>

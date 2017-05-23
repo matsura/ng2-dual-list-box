@@ -1,0 +1,26 @@
+{
+  "name": "ng2-dual-list-box",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matsura/ng2-dual-list-box"
+  },
+  "author": {
+    "name": "Eldar Granulo",
+    "email": "eldar32@gmail.com"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matsura/ng2-dual-list-box/issues"
+  },
+  "module": "ng2-dual-list-box.js",
+  "typings": "ng2-dual-list-box.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}

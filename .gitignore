@@ -6,6 +6,9 @@ npm-debug.log
 src/*.js
 src/*.map
 src/*.d.ts
+src/tests/*.js
+src/tests/*.js.map
+src/tests/*.d.ts
 
 # JetBrains
 .idea

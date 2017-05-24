@@ -4,7 +4,7 @@
         <input type="text" class="form-control vertical-spacing-5" placeholder="Filter..."
                formControlName="availableSearchInput" />
         <select class="form-control list-box" formControlName="availableListBox" multiple>
-            <option *ngFor="let item of availableItems | arrayFilter:['text', searchTermAvailable] | arraySort:['text', 'ASC']"
+            <option *ngFor="let item of availableItems | arrayFilter:['text', searchTermAvailable] | arraySort:['text', 'ASC'];trackBy:trackByValue"
                     [value]="item?.value">{{item?.text}}</option>
         </select>
     </div>
@@ -39,7 +39,7 @@
         <input type="text" class="form-control vertical-spacing-5" placeholder="Filter..."
                formControlName="selectedSearchInput" />
         <select class="form-control list-box" formControlName="selectedListBox" multiple>
-            <option *ngFor="let item of selectedItems | arrayFilter:['text', searchTermSelected] | arraySort:['text', 'ASC']"
+            <option *ngFor="let item of selectedItems | arrayFilter:['text', searchTermSelected] | arraySort:['text', 'ASC'];trackBy:trackByValue"
                     [value]="item?.value">{{item?.text}}</option>
         </select>
     </div>

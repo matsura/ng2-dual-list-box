@@ -199,4 +199,8 @@ export class DualListBoxComponent implements OnInit {
         this.selectedListBoxControl.setValue([]);
         this.selectedSearchInputControl.setValue('');
     }
+
+    private trackByValue(index: number, item: {}): string {
+        return item[this.valueField];
+    }
 } 

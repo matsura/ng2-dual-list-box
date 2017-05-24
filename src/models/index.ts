@@ -6,5 +6,5 @@ export interface IListBoxItem {
 export interface IItemsMovedEvent {
     available: Array<{}>;
     selected: Array<{}>;
-    item: {};
+    movedItems: Array<{}>;
 }

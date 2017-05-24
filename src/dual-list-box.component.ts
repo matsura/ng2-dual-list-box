@@ -1,9 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import 'rxjs/Rx';
 import * as _ from 'lodash';
 
 import { IItemsMovedEvent, IListBoxItem } from './models';
-import { SortOptions } from "./array.pipes";
 
 @Component({
     selector: 'ng2-dual-list-box',
@@ -12,6 +12,9 @@ import { SortOptions } from "./array.pipes";
         `.list-box {
             min-height: 200px;
             width: 100%;
+         }
+         .top100 {
+            margin-top: 100px;
          }
          .top80 {
             margin-top: 80px;
@@ -23,6 +26,30 @@ import { SortOptions } from "./array.pipes";
             margin-top: 5px;
             margin-bottom: 5px;
          }
+         .center-block {
+            min-height: 50px;
+         }
+        /* Small Devices, Tablets */
+        @media only screen and (max-width : 768px) {
+            .sm-spacing {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+        /* Tablets in portrait */
+        @media only screen and (min-width : 768px) and (max-width : 992px) {
+            .sm-spacing {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+        /* Extra Small Devices, Phones */ 
+        @media only screen and (max-width : 480px) {
+            .sm-spacing {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
         `
     ]
 })
@@ -53,8 +80,8 @@ export class DualListBoxComponent implements OnInit {
     @Output() onItemsMoved: EventEmitter<IItemsMovedEvent> = new EventEmitter<IItemsMovedEvent>();
 
     // private variables to manage class 
-    private searchTermAvailable: string;
-    private searchTermSelected: string;
+    private searchTermAvailable: string = '';
+    private searchTermSelected: string = '';
     private availableItems: Array<IListBoxItem> = [];
     private selectedItems: Array<IListBoxItem> = [];
     private listBoxForm: FormGroup;
@@ -62,7 +89,6 @@ export class DualListBoxComponent implements OnInit {
     private selectedListBoxControl: FormControl = new FormControl();
     private availableSearchInputControl: FormControl = new FormControl();
     private selectedSearchInputControl: FormControl = new FormControl();
-    private sortDirection: string = SortOptions.direction.ASC;
 
     constructor(public fb: FormBuilder) {
 
@@ -88,13 +114,13 @@ export class DualListBoxComponent implements OnInit {
             .subscribe((items: Array<{}>) => this.onSelectedItemsSelected.emit(items));
         this.availableSearchInputControl
             .valueChanges
-           // .debounceTime(this.debounceTime)
-           // .distinctUntilChanged()
+            .debounceTime(this.debounceTime)
+            .distinctUntilChanged()
             .subscribe((search: string) => this.searchTermAvailable = search);
         this.selectedSearchInputControl
             .valueChanges
-           // .debounceTime(this.debounceTime)
-           // .distinctUntilChanged()
+            .debounceTime(this.debounceTime)
+            .distinctUntilChanged()
             .subscribe((search: string) => this.searchTermSelected = search);
     }
 
@@ -108,6 +134,12 @@ export class DualListBoxComponent implements OnInit {
         }
         this.selectedItems = [...this.selectedItems, ...this.availableItems];
         this.availableItems = [];
+        this.onItemsMoved.emit({
+            available: this.availableItems,
+            selected: this.selectedItems,
+            movedItems: this.availableListBoxControl.value
+        });
+        this.availableListBoxControl.setValue([]);
     }
 
     /**
@@ -120,6 +152,12 @@ export class DualListBoxComponent implements OnInit {
         }
         this.availableItems = [...this.availableItems, ...this.selectedItems];
         this.selectedItems = [];
+        this.onItemsMoved.emit({
+            available: this.availableItems,
+            selected: this.selectedItems,
+            movedItems: this.selectedListBoxControl.value
+        });
+        this.selectedListBoxControl.setValue([]);
     }
 
     /**
@@ -132,8 +170,14 @@ export class DualListBoxComponent implements OnInit {
             ..._.intersectionWith(this.availableItems, this.availableListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
         // now filter available items to not include marked values
         this.availableItems = [..._.differenceWith(this.availableItems, this.availableListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
-        // clear marked available items
+        // clear marked available items and emit event
+        this.onItemsMoved.emit({
+            available: this.availableItems,
+            selected: this.selectedItems,
+            movedItems: this.availableListBoxControl.value
+        });
         this.availableListBoxControl.setValue([]);
+        this.availableSearchInputControl.setValue('');
     }
 
     /**
@@ -145,8 +189,14 @@ export class DualListBoxComponent implements OnInit {
         this.availableItems = [...this.availableItems,
             ..._.intersectionWith(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
         // now filter available items to not include marked values
-        this.selectedItems = [..._.differenceBy(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
-        // clear marked available items
+        this.selectedItems = [..._.differenceWith(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
+        // clear marked available items and emit event
+        this.onItemsMoved.emit({
+            available: this.availableItems,
+            selected: this.selectedItems,
+            movedItems: this.selectedListBoxControl.value
+        });
         this.selectedListBoxControl.setValue([]);
+        this.selectedSearchInputControl.setValue('');
     }
 } 

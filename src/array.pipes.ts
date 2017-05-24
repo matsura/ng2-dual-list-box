@@ -34,3 +34,26 @@ export class ArraySortPipe implements PipeTransform {
         return _.orderBy(array, (item: {} | string) => item.hasOwnProperty(key) ? item[key] : item, direction);
     }
 }
+
+@Pipe({
+    name: 'arrayFilter'
+})
+export class ArrayFilterPipe implements PipeTransform {
+
+    transform(array: Array<{}>, args: string[]): Array<string> | Array<{}> {
+
+        array = array || [];
+
+        if (typeof args === 'undefined') {
+            return array;
+        }
+
+        const [key, searchTerm] = args;
+
+        if (searchTerm.trim() === '') {
+            return array;
+        }
+
+        return array.filter((item: {}) => item[key].toString().toLowerCase().search(searchTerm.toLowerCase().trim()) >= 0);
+    }
+}

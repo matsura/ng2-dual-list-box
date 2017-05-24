@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { DualListBoxComponent } from './dual-list-box.component';
-import { ArraySortPipe } from './array.pipes';
+import { ArraySortPipe, ArrayFilterPipe } from './array.pipes';
 
 export * from './dual-list-box.component';
 
@@ -14,6 +14,7 @@ export * from './dual-list-box.component';
   ],
   declarations: [
     ArraySortPipe,
+    ArrayFilterPipe,
     DualListBoxComponent
   ],
   exports: [

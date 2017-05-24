@@ -200,6 +200,13 @@ export class DualListBoxComponent implements OnInit {
         this.selectedSearchInputControl.setValue('');
     }
 
+    /**
+     * Function to pass to ngFor to improve performance, tracks items
+     * by the value field
+     * @param index
+     * @param item
+     * @returns {any}
+     */
     private trackByValue(index: number, item: {}): string {
         return item[this.valueField];
     }

@@ -9,6 +9,8 @@ src/*.d.ts
 src/tests/*.js
 src/tests/*.js.map
 src/tests/*.d.ts
+src/**/*.js
+src/**/*.js.map
 
 # JetBrains
 .idea
@@ -36,3 +38,11 @@ dist/*
 
 # Coverage
 coverage/*
+
+# Docs
+docs/*
+
+# Root base for tests
+base.spec.js
+base.spec.js.map
+base.spec.d.ts

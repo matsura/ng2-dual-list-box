@@ -68,9 +68,9 @@ export class DualListBoxComponent implements OnInit {
     // show/hide button to move all items between boxes 
     @Input() moveAllButton = true;
     // text displayed over the available items list box
-    @Input() availableText: string = 'Available items';
+    @Input() availableText = 'Available items';
     // text displayed over the selected items list box
-    @Input() selectedText: string = 'Selected items';
+    @Input() selectedText = 'Selected items';
 
     // event called when item or items from available items(left box) is selected 
     @Output() onAvailableItemSelected: EventEmitter<{} | Array<{}>> = new EventEmitter<{} | Array<{}>>();
@@ -80,15 +80,15 @@ export class DualListBoxComponent implements OnInit {
     @Output() onItemsMoved: EventEmitter<IItemsMovedEvent> = new EventEmitter<IItemsMovedEvent>();
 
     // private variables to manage class 
-    private searchTermAvailable: string = '';
-    private searchTermSelected: string = '';
-    private availableItems: Array<IListBoxItem> = [];
-    private selectedItems: Array<IListBoxItem> = [];
-    private listBoxForm: FormGroup;
-    private availableListBoxControl: FormControl = new FormControl();
-    private selectedListBoxControl: FormControl = new FormControl();
-    private availableSearchInputControl: FormControl = new FormControl();
-    private selectedSearchInputControl: FormControl = new FormControl();
+    searchTermAvailable: string = '';
+    searchTermSelected: string = '';
+    availableItems: Array<IListBoxItem> = [];
+    selectedItems: Array<IListBoxItem> = [];
+    listBoxForm: FormGroup;
+    availableListBoxControl: FormControl = new FormControl();
+    selectedListBoxControl: FormControl = new FormControl();
+    availableSearchInputControl: FormControl = new FormControl();
+    selectedSearchInputControl: FormControl = new FormControl();
 
     constructor(public fb: FormBuilder) {
 
@@ -207,7 +207,7 @@ export class DualListBoxComponent implements OnInit {
      * @param item
      * @returns {any}
      */
-    private trackByValue(index: number, item: {}): string {
+    trackByValue(index: number, item: {}): string {
         return item[this.valueField];
     }
 } 

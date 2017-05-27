@@ -1,19 +1,24 @@
 # ng2-dual-list-box
 
+An Angular 4 component inspired by the following jQuery library: https://github.com/Geodan/DualListBox
+
+
+Uses Bootstrap 3 classes for styling and responsiveness
+
+## Documentation
+
+Full documentation available at http://ng2-duallistbox-docs.surge.sh/
+
+## Demo
+
+http://ng2-duallistbox-demo.surge.sh/
+
 ## Installation
 
 To install this library, run:
 
 ```bash
 $ npm install ng2-dual-list-box --save
-```
-
-## Consuming your library
-
-Once you have published your library to npm, you can import your library in any Angular application by running:
-
-```bash
-$ npm install ng2-dual-list-box
 ```
 
 and then from your Angular `AppModule`:
@@ -25,7 +30,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import your library
-import { SampleModule } from 'ng2-dual-list-box';
+import { DualListBoxModule } from 'ng2-dual-list-box';
 
 @NgModule({
   declarations: [
@@ -33,9 +38,7 @@ import { SampleModule } from 'ng2-dual-list-box';
   ],
   imports: [
     BrowserModule,
-
-    // Specify your library as an import
-    LibraryModule
+    DualListBoxModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
@@ -43,14 +46,17 @@ import { SampleModule } from 'ng2-dual-list-box';
 export class AppModule { }
 ```
 
-Once your library is imported, you can use its components, directives and pipes in your Angular application:
+Use it in your template like this. Check the documentation for other available fields, but these are mandatory
 
-```xml
-<!-- You can now use your library component in app.component.html -->
-<h1>
-  {{title}}
-</h1>
-<sampleComponent></sampleComponent>
+```html
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <ng2-dual-list-box [data]="items" valueField="id" textField="name"
+                       (onAvailableItemSelected)="log($event)"
+                       (onSelectedItemsSelected)="log($event)"
+                       (onItemsMoved)="log($event)"></ng2-dual-list-box>
+  </div>
+</div>
 ```
 
 ## Development

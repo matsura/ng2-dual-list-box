@@ -24,29 +24,34 @@ describe('Array filter pipe ', (): void => {
         done();
     });
 
-    it('should return empty array if undefined is passed', inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
+    it('should return empty array if undefined is passed',
+        inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
         expect(pipe.transform(undefined, ['key', 'Eldar'])).toEqual([]);
     }));
 
-    it('should return empty array if array of length 0 is passed', inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
+    it('should return empty array if array of length 0 is passed',
+        inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
         expect(pipe.transform([], ['key', 'value'])).toEqual([]);
     }));
 
-    it('should return original array if less or more than 2 arguments are passed', inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
+    it('should return original array if less or more than 2 arguments are passed',
+        inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
         expect(_.isEqual(testArray, pipe.transform(testArray, []))).toBe(true);
         expect(_.isEqual(testArray, pipe.transform(testArray, ['key']))).toBe(true);
         expect(_.isEqual(testArray, pipe.transform(testArray, ['key', 'value', 'value'] ))).toBe(true);
     }));
 
-    it('should return original array if search term consisting of only spaces is passed', inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
+    it('should return original array if search term consisting of only spaces is passed',
+        inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
         expect(_.isEqual(testArray, pipe.transform(testArray, ['key', '       ']))).toBe(true);
     }));
 
-    it('should filter array based on passed key and search term and return array containing filtered values', inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
+    it('should filter array based on passed key and search term and return array containing filtered values',
+        inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
         const filteredArray: Array<{}> = pipe.transform(testArray, ['key', 'Eldar']);
         expect(filteredArray.length).toEqual(1);
@@ -57,7 +62,8 @@ describe('Array filter pipe ', (): void => {
 
 describe('Array sort pipe ', (): void => {
 
-    let testArray: Array<{ key: string, value: number }> = [{ key: 'Sarajevo', value: 10 }, { key: 'Eldar', value: 200 }];
+    let testArray: Array<{ key: string, value: number }> = [{ key: 'Sarajevo', value: 10 },
+        { key: 'Eldar', value: 200 }];
 
     beforeEach((done: Function): void => {
         TestBed.configureTestingModule({
@@ -75,17 +81,20 @@ describe('Array sort pipe ', (): void => {
         done();
     });
 
-    it('should return empty array if undefined is passed', inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
+    it('should return empty array if undefined is passed',
+        inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
 
         expect(pipe.transform(undefined, ['key', 'Eldar'])).toEqual([]);
     }));
 
-    it('should return empty array if array of length 0 is passed', inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
+    it('should return empty array if array of length 0 is passed',
+        inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
 
         expect(pipe.transform([], ['key', 'value'])).toEqual([]);
     }));
 
-    it('should return original array if undefined is passed as arguments', inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
+    it('should return original array if undefined is passed as arguments',
+        inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
 
         expect(_.isEqual(testArray, pipe.transform(testArray, undefined))).toBe(true);
     }));

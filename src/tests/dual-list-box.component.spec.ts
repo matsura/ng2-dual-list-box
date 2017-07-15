@@ -172,7 +172,7 @@ describe('DualListBoxComponent with TCB', (): void => {
         const component: DualListBoxComponent = fixture.componentInstance;
         component.valueField = 'id';
         component.textField = 'name';
-        component.data = testArray;
+        component.data = [...testArray];
 
         fixture.detectChanges();
 

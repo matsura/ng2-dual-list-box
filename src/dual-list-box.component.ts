@@ -8,78 +8,41 @@ import { IItemsMovedEvent, IListBoxItem } from './models';
 @Component({
     selector: 'ng2-dual-list-box',
     templateUrl: 'dual-list-box.component.html',
-    styles: [
-        `.list-box {
-            min-height: 200px;
-            width: 100%;
-         }
-         .top100 {
-            margin-top: 100px;
-         }
-         .top80 {
-            margin-top: 80px;
-         }
-         .bottom10 {
-            margin-bottom: 10px;
-         }
-         .vertical-spacing-5 {
-            margin-top: 5px;
-            margin-bottom: 5px;
-         }
-         .center-block {
-            min-height: 50px;
-         }
-        /* Small Devices, Tablets */
-        @media only screen and (max-width : 768px) {
-            .sm-spacing {
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-        }
-        /* Tablets in portrait */
-        @media only screen and (min-width : 768px) and (max-width : 992px) {
-            .sm-spacing {
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-        }
-        /* Extra Small Devices, Phones */ 
-        @media only screen and (max-width : 480px) {
-            .sm-spacing {
-                margin-top: 10px;
-                margin-bottom: 10px;
-            }
-        }
-        `
-    ]
+    styleUrls: ['dual-list-box.component.css']
 })
 export class DualListBoxComponent implements OnInit {
 
-    // array of items to display in left box 
-    @Input() data: Array<{}> = [];
+    // array of items to display in left box
+    @Input() set data(items: Array<{}>) {
+
+        this.availableItems = [...(items || []).map((item: {}, index: number) => ({
+            value: item[this.valueField],
+            text: item[this.textField]
+        }))];
+    };
     // field to use for value of option
     @Input() valueField = 'id';
-    // field to use for displaying option text 
+    // field to use for displaying option text
     @Input() textField = 'name';
-    // text to display as title above component 
+    // text to display as title above component
     @Input() title: string;
-    // time to debounce search output in ms 
+    // time to debounce search output in ms
     @Input() debounceTime = 500;
-    // show/hide button to move all items between boxes 
+    // show/hide button to move all items between boxes
     @Input() moveAllButton = true;
     // text displayed over the available items list box
     @Input() availableText = 'Available items';
     // text displayed over the selected items list box
     @Input() selectedText = 'Selected items';
 
-    // event called when item or items from available items(left box) is selected 
+    // event called when item or items from available items(left box) is selected
     @Output() onAvailableItemSelected: EventEmitter<{} | Array<{}>> = new EventEmitter<{} | Array<{}>>();
-    // event called when item or items from selected items(right box) is selected 
+    // event called when item or items from selected items(right box) is selected
     @Output() onSelectedItemsSelected: EventEmitter<{} | Array<{}>> = new EventEmitter<{} | Array<{}>>();
-    // event called when items are moved between boxes, returns state of both boxes and item moved 
+    // event called when items are moved between boxes, returns state of both boxes and item moved
     @Output() onItemsMoved: EventEmitter<IItemsMovedEvent> = new EventEmitter<IItemsMovedEvent>();
 
-    // private variables to manage class 
+    // private variables to manage class
     searchTermAvailable: string = '';
     searchTermSelected: string = '';
     availableItems: Array<IListBoxItem> = [];
@@ -102,10 +65,6 @@ export class DualListBoxComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.availableItems = [...this.data.map((item: {}, index: number) => ({
-            value: item[this.valueField],
-            text: item[this.textField]
-        }))];
         this.availableListBoxControl
             .valueChanges
             .subscribe((items: Array<{}>) => this.onAvailableItemSelected.emit(items));

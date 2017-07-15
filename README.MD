@@ -59,6 +59,35 @@ Use it in your template like this. Check the documentation for other available f
 </div>
 ```
 
+You can also use ngModel and formControlName. When this is used the variable or form control used will have the value of the selected list box.
+
+```html
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <ng2-dual-list-box [data]="items" valueField="id" textField="name"
+                       [(ngModel)]="selected"
+                       (onAvailableItemSelected)="log($event)"
+                       (onSelectedItemsSelected)="log($event)"
+                       (onItemsMoved)="log($event)"></ng2-dual-list-box>
+  </div>
+</div>
+```
+
+```html
+<div class="row">
+  <div class="col-md-8 col-md-offset-2" [formGroup]="form">
+    <ng2-dual-list-box [data]="items" valueField="id" textField="name"
+                       formControlName="selected"
+                       (onAvailableItemSelected)="log($event)"
+                       (onSelectedItemsSelected)="log($event)"
+                       (onItemsMoved)="log($event)"></ng2-dual-list-box>
+  </div>
+</div>
+```
+
+
+
+
 ## Development
 
 To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:

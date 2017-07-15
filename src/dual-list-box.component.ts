@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Component, Input, Output, EventEmitter, OnInit, forwardRef } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import 'rxjs/Rx';
 import * as _ from 'lodash';
 
@@ -8,9 +8,14 @@ import { IItemsMovedEvent, IListBoxItem } from './models';
 @Component({
     selector: 'ng2-dual-list-box',
     templateUrl: 'dual-list-box.component.html',
-    styleUrls: ['dual-list-box.component.css']
+    styleUrls: ['dual-list-box.component.css'],
+    providers: [{
+        provide: NG_VALUE_ACCESSOR,
+        useExisting: forwardRef(() => DualListBoxComponent),
+        multi: true
+    }]
 })
-export class DualListBoxComponent implements OnInit {
+export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
     // array of items to display in left box
     @Input() set data(items: Array<{}>) {
@@ -52,6 +57,10 @@ export class DualListBoxComponent implements OnInit {
     selectedListBoxControl: FormControl = new FormControl();
     availableSearchInputControl: FormControl = new FormControl();
     selectedSearchInputControl: FormControl = new FormControl();
+
+    // control value accessors
+    _onChange = (_: any) => { };
+    _onTouched = () => { };
 
     constructor(public fb: FormBuilder) {
 
@@ -99,6 +108,7 @@ export class DualListBoxComponent implements OnInit {
             movedItems: this.availableListBoxControl.value
         });
         this.availableListBoxControl.setValue([]);
+        this.writeValue(this.selectedItems);
     }
 
     /**
@@ -117,6 +127,7 @@ export class DualListBoxComponent implements OnInit {
             movedItems: this.selectedListBoxControl.value
         });
         this.selectedListBoxControl.setValue([]);
+        this.writeValue([]);
     }
 
     /**
@@ -137,6 +148,7 @@ export class DualListBoxComponent implements OnInit {
         });
         this.availableListBoxControl.setValue([]);
         this.availableSearchInputControl.setValue('');
+        this.writeValue(this.selectedItems);
     }
 
     /**
@@ -157,6 +169,7 @@ export class DualListBoxComponent implements OnInit {
         });
         this.selectedListBoxControl.setValue([]);
         this.selectedSearchInputControl.setValue('');
+        this.writeValue(this.selectedItems);
     }
 
     /**
@@ -169,4 +182,18 @@ export class DualListBoxComponent implements OnInit {
     trackByValue(index: number, item: {}): string {
         return item[this.valueField];
     }
-} 
+
+    /* Methods from ControlValueAccessor interface, required for ngModel and formControlName - begin */
+    writeValue(value: any): void {
+        this._onChange(value);
+    }
+
+    registerOnChange(fn: (_: any) => {}): void {
+        this._onChange = fn;
+    }
+
+    registerOnTouched(fn: () => {}): void {
+        this._onTouched = fn;
+    }
+    /* Methods from ControlValueAccessor interface, required for ngModel and formControlName - end */
+}

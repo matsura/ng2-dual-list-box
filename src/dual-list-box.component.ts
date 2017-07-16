@@ -108,7 +108,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
             movedItems: this.availableListBoxControl.value
         });
         this.availableListBoxControl.setValue([]);
-        this.writeValue(this.selectedItems);
+        this.writeValue(this.getValues());
     }
 
     /**
@@ -148,7 +148,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
         });
         this.availableListBoxControl.setValue([]);
         this.availableSearchInputControl.setValue('');
-        this.writeValue(this.selectedItems);
+        this.writeValue(this.getValues());
     }
 
     /**
@@ -169,7 +169,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
         });
         this.selectedListBoxControl.setValue([]);
         this.selectedSearchInputControl.setValue('');
-        this.writeValue(this.selectedItems);
+        this.writeValue(this.getValues());
     }
 
     /**
@@ -196,4 +196,8 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
         this._onTouched = fn;
     }
     /* Methods from ControlValueAccessor interface, required for ngModel and formControlName - end */
+
+    private getValues() {
+        return (this.selectedItems || []).map((item: IListBoxItem) => item.value);
+    }    
 }

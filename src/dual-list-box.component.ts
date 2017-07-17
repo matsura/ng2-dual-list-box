@@ -19,11 +19,20 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
     // array of items to display in left box
     @Input() set data(items: Array<{}>) {
-
         this.availableItems = [...(items || []).map((item: {}, index: number) => ({
             value: item[this.valueField],
             text: item[this.textField]
         }))];
+    };
+    // input to set search term for available list box from the outside
+    @Input() set availableSearch(searchTerm: string) {
+        this.searchTermAvailable = searchTerm;
+        this.availableSearchInputControl.setValue(searchTerm);
+    };
+    // input to set search term for selected list box from the outside
+    @Input() set selectedSearch(searchTerm: string) {
+        this.searchTermSelected = searchTerm;
+        this.selectedSearchInputControl.setValue(searchTerm);
     };
     // field to use for value of option
     @Input() valueField = 'id';
@@ -173,6 +182,42 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     }
 
     /**
+     * Move single item from available to selected
+     * @param item
+     */
+    moveAvailableItemToSelected(item: IListBoxItem): void {
+
+        this.availableItems = this.availableItems.filter((listItem: IListBoxItem) => listItem.value !== item.value);
+        this.selectedItems = [...this.selectedItems, item];
+        this.onItemsMoved.emit({
+            available: this.availableItems,
+            selected: this.selectedItems,
+            movedItems: [item.value]
+        });
+        this.availableSearchInputControl.setValue('');
+        this.availableListBoxControl.setValue([]);
+        this.writeValue(this.getValues());
+    }
+
+    /**
+     * Move single item from selected to available
+     * @param item
+     */
+    moveSelectedItemToAvailable(item: IListBoxItem): void {
+
+        this.selectedItems = this.selectedItems.filter((listItem: IListBoxItem) => listItem.value !== item.value);
+        this.availableItems = [...this.availableItems, item];
+        this.onItemsMoved.emit({
+            available: this.availableItems,
+            selected: this.selectedItems,
+            movedItems: [item.value]
+        });
+        this.selectedSearchInputControl.setValue('');
+        this.selectedListBoxControl.setValue([]);
+        this.writeValue(this.getValues());
+    }
+
+    /**
      * Function to pass to ngFor to improve performance, tracks items
      * by the value field
      * @param index
@@ -185,6 +230,12 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
     /* Methods from ControlValueAccessor interface, required for ngModel and formControlName - begin */
     writeValue(value: any): void {
+        if (this.selectedItems && value && value.length > 0) {
+            debugger;
+            this.selectedItems = [...this.selectedItems,
+                ..._.intersectionWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
+            this.availableItems = [..._.differenceWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
+        }
         this._onChange(value);
     }
 
@@ -197,7 +248,12 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     }
     /* Methods from ControlValueAccessor interface, required for ngModel and formControlName - end */
 
-    private getValues() {
+    /**
+     * Utility method to get values from
+     * selected items
+     * @returns {string[]}
+     */
+    private getValues(): string[] {
         return (this.selectedItems || []).map((item: IListBoxItem) => item.value);
-    }    
+    }
 }

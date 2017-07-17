@@ -5,7 +5,8 @@
                formControlName="availableSearchInput" />
         <select class="form-control list-box" formControlName="availableListBox" multiple>
             <option *ngFor="let item of availableItems | arrayFilter:['text', searchTermAvailable] | arraySort:['text', 'ASC'];trackBy:trackByValue"
-                    [value]="item?.value">{{item?.text}}</option>
+                    [value]="item?.value"
+                    (dblclick)="moveAvailableItemToSelected(item)">{{item?.text}}</option>
         </select>
     </div>
     <div class="col-md-2 col-lg-2 col-sm-12 center-block text-center">
@@ -40,7 +41,8 @@
                formControlName="selectedSearchInput" />
         <select class="form-control list-box" formControlName="selectedListBox" multiple>
             <option *ngFor="let item of selectedItems | arrayFilter:['text', searchTermSelected] | arraySort:['text', 'ASC'];trackBy:trackByValue"
-                    [value]="item?.value">{{item?.text}}</option>
+                    [value]="item?.value"
+                    (dblclick)="moveSelectedItemToAvailable(item)">{{item?.text}}</option>
         </select>
     </div>
 </div>

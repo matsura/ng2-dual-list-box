@@ -5,7 +5,7 @@ An Angular 4 component inspired by the following jQuery library: https://github.
 
 Uses Bootstrap 3 classes for styling and responsiveness
 
-[![NPM](https://nodei.co/npm/ng2-dual-list-box.png)](https://npmjs.org/package/ng2-dual-list-box)
+[![NPM](https://nodei.co/npm/ng2-dual-list-box.png?downloads=true&downloadRank=true)](https://npmjs.org/package/ng2-dual-list-box)
 
 ## Documentation
 

@@ -48,6 +48,10 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     @Input() availableText = 'Available items';
     // text displayed over the selected items list box
     @Input() selectedText = 'Selected items';
+    // set placeholder text in available items list box
+    @Input() availableFilterPlaceholder= 'Filter...';
+    // set placeholder text in selected items list box
+    @Input() selectedFilterPlaceholder = 'Filter...';
 
     // event called when item or items from available items(left box) is selected
     @Output() onAvailableItemSelected: EventEmitter<{} | Array<{}>> = new EventEmitter<{} | Array<{}>>();
@@ -231,7 +235,6 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     /* Methods from ControlValueAccessor interface, required for ngModel and formControlName - begin */
     writeValue(value: any): void {
         if (this.selectedItems && value && value.length > 0) {
-            debugger;
             this.selectedItems = [...this.selectedItems,
                 ..._.intersectionWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
             this.availableItems = [..._.differenceWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];

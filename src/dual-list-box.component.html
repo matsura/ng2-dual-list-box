@@ -1,7 +1,7 @@
 <div class="row" [formGroup]="listBoxForm">
     <div class="col-md-5 col-lg-5 col-sm-12">
         <h4 class="text-center vertical-spacing-5">{{availableText}}</h4>
-        <input type="text" class="form-control vertical-spacing-5" placeholder="Filter..."
+        <input type="text" class="form-control vertical-spacing-5" placeholder="{{availableFilterPlaceholder}}"
                formControlName="availableSearchInput" />
         <select class="form-control list-box" formControlName="availableListBox" multiple>
             <option *ngFor="let item of availableItems | arrayFilter:['text', searchTermAvailable] | arraySort:['text', 'ASC'];trackBy:trackByValue"
@@ -37,7 +37,7 @@
     </div>
     <div class="col-md-5 col-lg-5 col-sm-12">
         <h4 class="text-center vertical-spacing-5">{{selectedText}}</h4>
-        <input type="text" class="form-control vertical-spacing-5" placeholder="Filter..."
+        <input type="text" class="form-control vertical-spacing-5" placeholder="{{selectedFilterPlaceholder}}"
                formControlName="selectedSearchInput" />
         <select class="form-control list-box" formControlName="selectedListBox" multiple>
             <option *ngFor="let item of selectedItems | arrayFilter:['text', searchTermSelected] | arraySort:['text', 'ASC'];trackBy:trackByValue"

@@ -14,6 +14,12 @@ module.exports = function (config) {
         preprocessors: {
             '**/*.ts': ['karma-typescript']
         },
+        coverageReporter: {
+          dir: 'coverage',
+          subdir: '.',
+          type: 'lcovonly'
+          // Would output the results into: .'/coverage/'
+        },
         karmaTypescriptConfig: {
             bundlerOptions: {
                 entrypoints: /\.spec\.ts$/,
@@ -28,7 +34,7 @@ module.exports = function (config) {
                 "demo"
             ]
         },
-        reporters: ['progress', 'karma-typescript'],
+        reporters: ['progress', 'coverage'],
         browsers: ['PhantomJS_custom'],
         colors: true,
         logLevel: config.LOG_INFO,
@@ -55,26 +61,6 @@ module.exports = function (config) {
             exitOnResourceError: false
         }
     };
-
-    if (!WATCH) {
-        CONFIGURATION.karmaTypescriptConfig.coverageOptions = {
-            instrumentation: true,
-            exclude: [
-                /\.(d|spec|test|module)\.ts/,
-                /\index.ts/,
-
-            ]
-        };
-        CONFIGURATION.karmaTypescriptConfig.reports = {
-            'text': '',
-            'text-summary': '',
-            'lcovonly': 'coverage'
-        };
-    }
-
-    if (process.env.TRAVIS) {
-        CONFIGURATION.browsers = ['Chrome_travis_ci'];
-    }
 
     config.set(CONFIGURATION);
 };

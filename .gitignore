@@ -46,3 +46,6 @@ docs/*
 base.spec.js
 base.spec.js.map
 base.spec.d.ts
+
+# Coveralls
+.coveralls.yml

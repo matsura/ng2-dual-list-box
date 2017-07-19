@@ -1,4 +1,32 @@
+#.travis.yml
+
 language: node_js
-sudo: false
 node_js:
-- '4.2.1'
+  - "6.9"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g surge
+  - npm install -g gulp
+  - npm install -g tsc
+
+script:
+  - npm test
+  - npm run build
+  - npm run docs:build
+
+after_success: 'npm run coveralls'
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
+
+deploy:
+  provider: surge
+  project: ./docs/
+  domain: http://ng2-duallistbox-docs.surge.sh/
+  skip_cleanup: true

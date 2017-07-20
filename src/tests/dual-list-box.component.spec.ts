@@ -364,4 +364,52 @@ describe('DualListBoxComponent with TCB', (): void => {
 
         done();
     });
+
+    it('should move one item from available to selected, reset search term and emit event', (done: Function): void => {
+
+        const component: DualListBoxComponent = fixture.componentInstance;
+        component.valueField = 'id';
+        component.textField = 'name';
+        component.data = testArray;
+        spyOn(component.onItemsMoved, 'emit');
+
+        component.moveAvailableItemToSelected({ value: '1', text: 'Name 1' });
+
+        expect(component.availableItems.length).toEqual(testArray.length - 1);
+        expect(component.selectedItems.length).toEqual(1);
+        expect(component.selectedItems[0].value).toEqual('1');
+        expect(component.availableSearchInputControl.value).toEqual('');
+        expect(component.onItemsMoved.emit).toHaveBeenCalledWith({
+            available: component.availableItems,
+            selected: component.selectedItems,
+            movedItems: ['1']
+        });
+
+        fixture.detectChanges();
+        done();
+    });
+
+    it('should move one item from selected to available, reset search term and emit event', (done: Function): void => {
+
+        const component: DualListBoxComponent = fixture.componentInstance;
+        component.valueField = 'id';
+        component.textField = 'name';
+        component.data = testArray;
+        spyOn(component.onItemsMoved, 'emit');
+
+        component.moveAvailableItemToSelected({ value: '1', text: 'Name 1' });
+        component.moveSelectedItemToAvailable({ value: '1', text: 'Name 1' });
+
+        expect(component.availableItems.length).toEqual(testArray.length );
+        expect(component.selectedItems.length).toEqual(0);
+        expect(component.selectedSearchInputControl.value).toEqual('');
+        expect(component.onItemsMoved.emit).toHaveBeenCalledWith({
+            available: component.availableItems,
+            selected: component.selectedItems,
+            movedItems: ['1']
+        });
+
+        fixture.detectChanges();
+        done();
+    });
 });

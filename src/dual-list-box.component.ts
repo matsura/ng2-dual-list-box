@@ -20,7 +20,7 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     // array of items to display in left box
     @Input() set data(items: Array<{}>) {
         this.availableItems = [...(items || []).map((item: {}, index: number) => ({
-            value: item[this.valueField],
+            value: item[this.valueField].toString(),
             text: item[this.textField]
         }))];
     };

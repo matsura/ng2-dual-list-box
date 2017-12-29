@@ -226,7 +226,6 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
      * by the value field
      * @param index
      * @param item
-     * @returns {any}
      */
     trackByValue(index: number, item: {}): string {
         return item[this.valueField];
@@ -237,7 +236,8 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
         if (this.selectedItems && value && value.length > 0) {
             this.selectedItems = [...this.selectedItems,
                 ..._.intersectionWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
-            this.availableItems = [..._.differenceWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
+            this.availableItems = [..._.differenceWith(this.availableItems, value,
+                (item: IListBoxItem, value: string) => item.value === value)];
         }
         this._onChange(value);
     }
@@ -254,7 +254,6 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     /**
      * Utility method to get values from
      * selected items
-     * @returns {string[]}
      */
     private getValues(): string[] {
         return (this.selectedItems || []).map((item: IListBoxItem) => item.value);

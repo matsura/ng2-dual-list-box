@@ -1,15 +1,23 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
-    "experimentalDecorators": true,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "target": "es5",
-    "lib": [
-      "es2015",
-      "dom"
+    "typeRoots": [
+      "node_modules/@types"
     ],
-    "skipLibCheck": true,
-    "types": ["jasmine"]
-  }
+    "lib": [
+      "es2016",
+      "dom"
+    ]
+  },
+  "include": [
+    "src/ng-ts-spinner/*.ts",
+    "index.ts"
+  ]
 }

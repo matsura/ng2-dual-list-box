@@ -1,6 +1,6 @@
 {
-  "name": "ng2-dual-list-box",
-  "version": "1.0.5",
+  "name": "slavede-ng2-dual-list-box",
+  "version": "1.1.0",
   "scripts": {
     "build": "gulp build",
     "build:watch": "gulp",
@@ -10,11 +10,12 @@
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "test": "tsc && karma start",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "packagr": "ng-packagr -p package.json"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/matsura/ng2-dual-list-box"
+    "url": "https://github.com/slavede/ng2-dual-list-box"
   },
   "author": {
     "name": "Eldar Granulo",
@@ -58,6 +59,7 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-typescript": "^3.0.0",
     "karma-typescript-angular2-transform": "^1.0.0",
+    "ng-packagr": "^2.1.0",
     "node-sass": "^4.5.2",
     "node-watch": "^0.5.2",
     "phantomjs-prebuilt": "^2.1.7",
@@ -72,5 +74,12 @@
   },
   "engines": {
     "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "lodash.differencewith": "^4.5.0",
+    "lodash.intersectionwith": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.orderby": "^4.6.0",
+    "tsickle": "^0.27.2"
   }
 }

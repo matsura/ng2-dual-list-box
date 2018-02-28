@@ -1,7 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnInit, forwardRef } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import 'rxjs/Rx';
-import * as _ from 'lodash';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/map';
+// import { orderby } from 'lodash.orderby';
+// import { intersectionwith } from 'lodash.intersectionwith';
+const intersectionwith = require('lodash.intersectionwith');
+// import { differenceWith } from 'lodash.differencewith';
+const differenceWith = require('lodash.differencewith');
 
 import { IItemsMovedEvent, IListBoxItem } from './models';
 
@@ -150,9 +156,9 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
         // first move items to selected
         this.selectedItems = [...this.selectedItems,
-            ..._.intersectionWith(this.availableItems, this.availableListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
+            ...intersectionwith(this.availableItems, this.availableListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
         // now filter available items to not include marked values
-        this.availableItems = [..._.differenceWith(this.availableItems, this.availableListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
+        this.availableItems = [...differenceWith(this.availableItems, this.availableListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
         // clear marked available items and emit event
         this.onItemsMoved.emit({
             available: this.availableItems,
@@ -171,9 +177,9 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
 
         // first move items to available
         this.availableItems = [...this.availableItems,
-            ..._.intersectionWith(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
+            ...intersectionwith(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
         // now filter available items to not include marked values
-        this.selectedItems = [..._.differenceWith(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
+        this.selectedItems = [...differenceWith(this.selectedItems, this.selectedListBoxControl.value, (item: IListBoxItem, value: string) => item.value === value)];
         // clear marked available items and emit event
         this.onItemsMoved.emit({
             available: this.availableItems,
@@ -236,8 +242,8 @@ export class DualListBoxComponent implements OnInit, ControlValueAccessor {
     writeValue(value: any): void {
         if (this.selectedItems && value && value.length > 0) {
             this.selectedItems = [...this.selectedItems,
-                ..._.intersectionWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
-            this.availableItems = [..._.differenceWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
+                ...intersectionwith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
+            this.availableItems = [...differenceWith(this.availableItems, value, (item: IListBoxItem, value: string) => item.value === value)];
         }
         this._onChange(value);
     }

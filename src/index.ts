@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DualListBoxComponent } from './dual-list-box.component';
 import { ArraySortPipe, ArrayFilterPipe } from './array.pipes';
 
-export * from './dual-list-box.component';
+// export * from './dual-list-box.component';
 
 @NgModule({
   imports: [
@@ -18,6 +18,8 @@ export * from './dual-list-box.component';
     DualListBoxComponent
   ],
   exports: [
+    ArraySortPipe,
+    ArrayFilterPipe,
     DualListBoxComponent
   ]
 })

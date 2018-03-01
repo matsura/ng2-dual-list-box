@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import * as _ from 'lodash';
+const orderby = require('lodash.orderby');
 
 /**
  * Utility class to not hardcode sort directions
@@ -9,7 +9,6 @@ export class SortOptions {
      * Static property to defined ASC and DESC values
      * to avoid hardcoding and repeating
      * replaces string enums
-     * @type {{ASC: string; DESC: string}}
      */
     static direction: {
         ASC: string,
@@ -45,7 +44,7 @@ export class ArraySortPipe implements PipeTransform {
         }
 
         // if there is no key we assume item is of string type
-        return _.orderBy(array, (item: {} | string) => item.hasOwnProperty(key) ? item[key] : item, direction.toLowerCase());
+        return orderby(array, (item: {} | string) => item.hasOwnProperty(key) ? item[key] : item, direction.toLowerCase());
     }
 }
 

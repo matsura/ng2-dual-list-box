@@ -288,7 +288,9 @@ describe('DualListBoxComponent with TCB', (): void => {
         expect(component.onItemsMoved.emit).toHaveBeenCalledWith({
             available: component.availableItems,
             selected: component.selectedItems,
-            movedItems: movedItems
+            movedItems: movedItems,
+            from: 'available',
+            to: 'selected'
         });
 
         done();
@@ -307,8 +309,10 @@ describe('DualListBoxComponent with TCB', (): void => {
 
         const availableListBox: DebugElement = fixture.debugElement.query(By.css('select[formControlName=availableListBox]'));
         const selectedListBox: DebugElement = fixture.debugElement.query(By.css('select[formControlName=selectedListBox]'));
-        let availableOptions: HTMLOptionElement[] = availableListBox.children.map((elem: DebugElement) => elem.nativeElement as HTMLOptionElement);
-        let selectedOptions: HTMLOptionElement[] = selectedListBox.children.map((elem: DebugElement) => elem.nativeElement as HTMLOptionElement);
+        let availableOptions: HTMLOptionElement[] = availableListBox.children
+            .map((elem: DebugElement) => elem.nativeElement as HTMLOptionElement);
+        let selectedOptions: HTMLOptionElement[] = selectedListBox.children
+            .map((elem: DebugElement) => elem.nativeElement as HTMLOptionElement);
 
         let movedItems: string[] = [];
         for (let i = 0; i < 3; i++) {
@@ -351,7 +355,8 @@ describe('DualListBoxComponent with TCB', (): void => {
         expect(_.intersectionWith(availableOptions, movedItems, (option: HTMLOptionElement, item: string) => {
             return option.value.split(':')[1].trim().replace("'", '').replace("'", '') === item;
         }).length).toEqual(3);
-        expect(_.intersectionWith(component.availableItems, component.selectedItems, (availableItem: IListBoxItem, selectedItem: IListBoxItem) => {
+        expect(_.intersectionWith(component.availableItems, component.selectedItems,
+            (availableItem: IListBoxItem, selectedItem: IListBoxItem) => {
             return availableItem.value === selectedItem.value;
         }).length).toEqual(0);
         expect(component.selectedListBoxControl.value).toEqual([]);
@@ -359,7 +364,9 @@ describe('DualListBoxComponent with TCB', (): void => {
         expect(component.onItemsMoved.emit).toHaveBeenCalledWith({
             available: component.availableItems,
             selected: component.selectedItems,
-            movedItems: movedItems
+            movedItems: movedItems,
+            from: 'selected',
+            to: 'available'
         });
 
         done();
@@ -382,7 +389,9 @@ describe('DualListBoxComponent with TCB', (): void => {
         expect(component.onItemsMoved.emit).toHaveBeenCalledWith({
             available: component.availableItems,
             selected: component.selectedItems,
-            movedItems: ['1']
+            movedItems: ['1'],
+            from: 'available',
+            to: 'selected'
         });
 
         fixture.detectChanges();
@@ -406,7 +415,9 @@ describe('DualListBoxComponent with TCB', (): void => {
         expect(component.onItemsMoved.emit).toHaveBeenCalledWith({
             available: component.availableItems,
             selected: component.selectedItems,
-            movedItems: ['1']
+            movedItems: ['1'],
+            from: 'selected',
+            to: 'available'
         });
 
         fixture.detectChanges();

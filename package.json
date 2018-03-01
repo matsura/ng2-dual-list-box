@@ -1,8 +1,8 @@
 {
   "name": "ng2-dual-list-box",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "scripts": {
-    "build": "gulp build",
+    "build": "npm run packagr",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n ng2-dual-list-box -d docs --hideGenerator",
@@ -10,7 +10,8 @@
     "docs:watch": "npm run docs:build -- -s -w",
     "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
     "test": "tsc && karma start",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "packagr": "ng-packagr -p package.json"
   },
   "repository": {
     "type": "git",
@@ -28,13 +29,13 @@
     "url": "https://github.com/matsura/ng2-dual-list-box/issues"
   },
   "devDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/common": "^5.2.7",
+    "@angular/compiler": "^5.2.7",
+    "@angular/compiler-cli": "^5.2.7",
+    "@angular/core": "^5.2.7",
+    "@angular/forms": "^5.2.7",
+    "@angular/platform-browser": "^5.2.7",
+    "@angular/platform-browser-dynamic": "^5.2.7",
     "@compodoc/compodoc": "^1.0.0-beta.7",
     "@types/jasmine": "2.5.38",
     "@types/lodash": "^4.14.64",
@@ -58,6 +59,7 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-typescript": "^3.0.0",
     "karma-typescript-angular2-transform": "^1.0.0",
+    "ng-packagr": "^2.1.0",
     "node-sass": "^4.5.2",
     "node-watch": "^0.5.2",
     "phantomjs-prebuilt": "^2.1.7",
@@ -67,10 +69,17 @@
     "rxjs": "^5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0",
+    "typescript": "^2.6.2",
     "zone.js": "^0.8.4"
   },
   "engines": {
     "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "lodash.differencewith": "^4.5.0",
+    "lodash.intersectionwith": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
+    "lodash.orderby": "^4.6.0",
+    "tsickle": "^0.27.2"
   }
 }

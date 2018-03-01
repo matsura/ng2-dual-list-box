@@ -254,7 +254,7 @@ describe('DualListBoxComponent with TCB', (): void => {
         let selectedOptions: HTMLOptionElement[] = selectedListBox.children
             .map((elem: DebugElement) => elem.nativeElement as HTMLOptionElement);
 
-        const movedItems: string[] = [];
+        const movedItems: any = [];
         for (let i = 0; i < 3; i++) {
 
             movedItems.push(availableOptions[i].value.split(':')[1].trim().replace("'", '').replace("'", ''));

@@ -1,8 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
-// import * as _ from 'lodash';
-
-import { isequal } from 'lodash.isequal';
+import * as _ from 'lodash';
 
 import { ArrayFilterPipe, ArraySortPipe, SortOptions } from '../array.pipes';
 
@@ -41,15 +39,15 @@ describe('Array filter pipe ', (): void => {
     it('should return original array if less or more than 2 arguments are passed',
         inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
-        expect(isequal(testArray, pipe.transform(testArray, []))).toBe(true);
-        expect(isequal(testArray, pipe.transform(testArray, ['key']))).toBe(true);
-        expect(isequal(testArray, pipe.transform(testArray, ['key', 'value', 'value'] ))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, []))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, ['key']))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, ['key', 'value', 'value'] ))).toBe(true);
     }));
 
     it('should return original array if search term consisting of only spaces is passed',
         inject([ArrayFilterPipe], (pipe: ArrayFilterPipe): void => {
 
-        expect(isequal(testArray, pipe.transform(testArray, ['key', '       ']))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, ['key', '       ']))).toBe(true);
     }));
 
     it('should filter array based on passed key and search term and return array containing filtered values',
@@ -98,14 +96,14 @@ describe('Array sort pipe ', (): void => {
     it('should return original array if undefined is passed as arguments',
         inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
 
-        expect(isequal(testArray, pipe.transform(testArray, undefined))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, undefined))).toBe(true);
     }));
 
     it('should return original array if less or more than 2 arguments are passed', inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
 
-        expect(isequal(testArray, pipe.transform(testArray, []))).toBe(true);
-        expect(isequal(testArray, pipe.transform(testArray, ['key']))).toBe(true);
-        expect(isequal(testArray, pipe.transform(testArray, ['key', 'value', 'value']))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, []))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, ['key']))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, ['key', 'value', 'value']))).toBe(true);
     }));
 
     it('should sort an array in ascending order by key and ASC direction passed', inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
@@ -126,7 +124,7 @@ describe('Array sort pipe ', (): void => {
 
     it('should return original array if invalid direction is passed', inject([ArraySortPipe], (pipe: ArraySortPipe): void => {
 
-        expect(isequal(testArray, pipe.transform(testArray, ['key', 'value'] ))).toBe(true);
+        expect(_.isEqual(testArray, pipe.transform(testArray, ['key', 'value'] ))).toBe(true);
     }));
 
 });

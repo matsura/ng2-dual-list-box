@@ -1,8 +1,8 @@
 {
   "name": "ng2-dual-list-box",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "scripts": {
-    "build": "gulp build",
+    "build": "npm run packagr",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n ng2-dual-list-box -d docs --hideGenerator",
@@ -29,13 +29,13 @@
     "url": "https://github.com/matsura/ng2-dual-list-box/issues"
   },
   "devDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
+    "@angular/common": "^5.2.7",
+    "@angular/compiler": "^5.2.7",
+    "@angular/compiler-cli": "^5.2.7",
+    "@angular/core": "^5.2.7",
+    "@angular/forms": "^5.2.7",
+    "@angular/platform-browser": "^5.2.7",
+    "@angular/platform-browser-dynamic": "^5.2.7",
     "@compodoc/compodoc": "^1.0.0-beta.7",
     "@types/jasmine": "2.5.38",
     "@types/lodash": "^4.14.64",
@@ -69,7 +69,7 @@
     "rxjs": "^5.1.0",
     "ts-node": "~2.0.0",
     "tslint": "~4.5.0",
-    "typescript": "~2.2.0",
+    "typescript": "^2.6.2",
     "zone.js": "^0.8.4"
   },
   "engines": {

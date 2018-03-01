@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from '@angular/core';
-// import { orderby } from 'lodash.orderby';
 const orderby = require('lodash.orderby');
 
 /**
@@ -10,7 +9,6 @@ export class SortOptions {
      * Static property to defined ASC and DESC values
      * to avoid hardcoding and repeating
      * replaces string enums
-     * @type {{ASC: string; DESC: string}}
      */
     static direction: {
         ASC: string,

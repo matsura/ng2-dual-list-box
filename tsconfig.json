@@ -17,7 +17,6 @@
     ]
   },
   "include": [
-    "src/ng-ts-spinner/*.ts",
-    "index.ts"
+    "src/index.ts"
   ]
 }

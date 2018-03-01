@@ -51,4 +51,5 @@ base.spec.d.ts
 .coveralls.yml
 
 # Ng pkg
-,ng_pkg_build
+.ng_pkg_build/*
+build/*

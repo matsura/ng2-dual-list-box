@@ -22,7 +22,7 @@ http://ng2-duallistbox-demo.surge.sh/
 To install this library, run:
 
 ```bash
-$ npm install ng-dual-list-box --save
+$ npm install ng2-dual-list-box --save
 ```
 
 and then from your Angular `AppModule`:
@@ -34,7 +34,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import your library
-import { DualListBoxModule } from 'ng-dual-list-box';
+import { DualListBoxModule } from 'ng2-dual-list-box';
 
 @NgModule({
   declarations: [

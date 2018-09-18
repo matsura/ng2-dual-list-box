@@ -13,26 +13,26 @@
         <button type="button"
                 class="btn btn-default col-md-8 col-md-offset-2 atr top80 sm-spacing"
                 *ngIf="moveAllButton" (click)="moveAllItemsToSelected()">
-            <span class="glyphicon glyphicon-list"></span>
-            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="fa fa-list"></span>
+            <span class="fa fa-chevron-right"></span>
         </button>
         <button type="button"
                 class="btn btn-default col-md-8 col-md-offset-2 str vertical-spacing-5 sm-spacing"
                 [disabled]="!availableListBoxControl.value?.length"
                 (click)="moveMarkedAvailableItemsToSelected()">
-            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="fa fa-chevron-right"></span>
         </button>
         <button type="button"
                 class="btn btn-default col-md-8 col-md-offset-2 stl vertical-spacing-5 sm-spacing"
                 [disabled]="!selectedListBoxControl.value?.length"
                 (click)="moveMarkedSelectedItemsToAvailable()">
-            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="fa fa-chevron-left"></span>
         </button>
         <button type="button"
                 class="btn btn-default col-md-8 col-md-offset-2 atl bottom10 sm-spacing"
                 *ngIf="moveAllButton" (click)="moveAllItemsToAvailable()">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="glyphicon glyphicon-list"></span>
+            <span class="fa fa-chevron-left"></span>
+            <span class="fa fa-list"></span>
         </button>
     </div>
     <div class="col-md-5 col-lg-5 col-sm-12">
